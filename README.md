@@ -1,15 +1,21 @@
 <p align="center"><img src="https://sophron.github.io/wifiphisher/wifiphisher.png" /></p>
 
 ## About
-Wifiphisher is a security tool that mounts fast automated phishing attacks against WiFi networks in order to obtain secret passphrases and other credentials. It is a social engineering attack that unlike other methods it does not include any brute forcing. It is an easy way for obtaining credentials from captive portals and third party login pages or WPA/WPA2 secret passphrases.
+Wifiphisher is a security tool that mounts automated phishing attacks against WiFi networks in order to obtain secret passphrases or other credentials. It is a social engineering attack that unlike other methods it does not include any brute forcing. It is an easy way for obtaining credentials from captive portals and third party login pages or WPA/WPA2 secret passphrases.
 
 Wifiphisher works on Kali Linux and is licensed under the MIT license.
 
+## How it works
+After achieving a man-in-the-middle position using the Evil Twin attack, wifiphisher redirects all HTTP requests to an attacker-controlled look-alike web site.
+
 From the victim's perspective, the attack makes use in three phases:
 
-1. **Victim is being deauthenticated from her access point**. Wifiphisher continuously jams all of the target access point's wifi devices within range by sending deauth packets to the client from the access point, to the access point from the client, and to the broadcast address as well. 
-2. **Victim joins a rogue access point**. Wifiphisher sniffs the area and copies the target access point's settings. It then creates a rogue wireless access point that is modeled on the target. It also sets up a NAT/DHCP server and forwards the right ports. Consequently, because of the jamming, clients will start connecting to the rogue access point. After this phase, the victim is MiTMed.
-3. **Victim is being served a realistic router config-looking page**. wifiphisher employs a minimal web server that responds to HTTP & HTTPS requests. As soon as the victim requests a page from the Internet, wifiphisher will respond with a realistic fake page that asks for credentials, for example one that asks WPA password confirmation due to a router firmware upgrade.
+1. **Victim is being deauthenticated from her access point**. Wifiphisher continuously jams all of the target access point's wifi devices within range by forging “Deauthenticate” or “Disassociate” packets to disrupt existing associations.
+2. **Victim joins a rogue access point**. Wifiphisher sniffs the area and copies the target access point's settings. It then creates a rogue wireless access point that is modeled by the target. It also sets up a NAT/DHCP server and forwards the right ports. Consequently, because of the jamming, clients will start connecting to the rogue access point. After this phase, the victim is MiTMed.
+3. **Victim is being served a realistic router config-looking page**. wifiphisher employs a minimal web server that responds to HTTP & HTTPS requests. As soon as the victim requests a page from the Internet, wifiphisher will respond with a realistic fake page that asks for credentials. The tool supports community-built templates for different phishing scenarios, such as:
+  * Router configuration pages that ask for the WPA/WPA2 passphrase due to a router firmware upgrade.
+  * 3rd party login pages (for example, login pages similar to those of popular social networking or e-mail access sites and products)
+  * Captive portals, like the ones that are being used by hotels and airports.
 
 <p align="center"><img width="70%" src="https://sophron.github.io/wifiphisher/diagram.jpg" /><br /><i>Performing MiTM attack</i></p>
 
@@ -34,10 +40,12 @@ From the victim's perspective, the attack makes use in three phases:
 
 ## Requirements
 * Kali Linux.
-* Two wireless network interfaces, one capable of injection.
+* Two wireless network adapters; one capable of injection.
 
 ## Help needed
-If you are a Python developer or a web designer you can help us improve wifiphisher. Feel free to take a look at the bug tracker for some tasks to do.
+If you are a Python developer or a web designer you can help us improve wifiphisher. Feel free to take a look at the <a href="https://github.com/sophron/wifiphisher/issues">bug tracker</a> for some tasks to do.
+
+If you don't know how to code, you can help us by <a href="https://github.com/sophron/wifiphisher/issues">proposing improvements or reporting bugs</a>. Please have a look at the <a href="https://github.com/sophron/wifiphisher/wiki/Bug-reporting-guidelines">Bug Reporting Guidelines</a> and the <a href="https://github.com/sophron/wifiphisher/wiki/Frequently-Asked-Questions-%28FAQ%29">FAQ document</a> beforehand.
 
 ## Credits
 The script is based on an idea from <a
@@ -46,8 +54,19 @@ jamming and selecting an AP have also been taken from his scripts <a
 href="https://github.com/DanMcInerney/wifijammer">wifijammer</a> and <a
 href="https://github.com/DanMcInerney/fakeAP">fakeAP</a>.
 
+A full list of contributors lies <a href="https://github.com/sophron/wifiphisher/graphs/contributors">here</a>.
+
 ## License
-Wifiphisher is licensed under the MIT license. See [LICENSE](LICENSE) for more information.
+Wifiphisher is licensed under the GPL license. See [LICENSE](LICENSE) for more information.
+
+## Project Status & Download
+Wifiphisher's current version is **1.1**. You can download the latest release from <a href="https://github.com/sophron/wifiphisher/releases/tag/v1.1">here</a>. Otherwise you can get the latest development version by cloning this repository. 
+
+## Other resources
+* Official wiki: https://github.com/sophron/wifiphisher/wiki
+* “Introducing wifiphisher“ talk at BSidesLondon: https://www.youtube.com/watch?v=pRtxFWJTS4k
+* HowTo video by JackkTutorials: https://www.youtube.com/watch?v=tCwclyurB8I
+* "Get Anyone's Wi-Fi Password Without Cracking Using Wifiphisher" by Null Byte: http://null-byte.wonderhowto.com/how-to/hack-wi-fi-get-anyones-wi-fi-password-without-cracking-using-wifiphisher-0165154/
 
 [![alt text][1.1]][1]
 [1.1]: http://i.imgur.com/tXSoThF.png (Follow me)
